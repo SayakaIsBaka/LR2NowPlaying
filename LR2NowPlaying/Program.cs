@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace LR2NowPlaying
 {
@@ -13,13 +15,25 @@ namespace LR2NowPlaying
             Injector injector = new Injector(processName);
             int ret = injector.Inject(dllPath);
 
+            BlockingCollection<string> queue = new BlockingCollection<string>();
+
             Thread receiverThread = new Thread(
                 delegate ()
                 {
-                    MindReceiver receiver = new MindReceiver(2222);
+                    MindReceiver receiver = new MindReceiver(2222, queue);
                     receiver.Listen();
                 });
             receiverThread.Start();
+
+            Task.Run(() =>
+            {
+                Processor processor = new Processor(queue);
+                while (true)
+                {
+                    processor.Process();
+                }
+            });
+
             return ret;
         }
     }

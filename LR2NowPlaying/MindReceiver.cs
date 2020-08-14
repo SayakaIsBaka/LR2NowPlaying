@@ -1,8 +1,7 @@
 ﻿using System;
-using System.IO;
+using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Sockets;
-using System.Security.Cryptography;
 using System.Text;
 
 namespace LR2NowPlaying
@@ -11,10 +10,12 @@ namespace LR2NowPlaying
     {
         private int port;
         private UdpClient udpClient;
+        private BlockingCollection<string> queue;
 
-        public MindReceiver(int port)
+        public MindReceiver(int port, BlockingCollection<string> queue)
         {
             this.port = port;
+            this.queue = queue;
             udpClient = new UdpClient();
             udpClient.Client.Bind(new IPEndPoint(IPAddress.Any, port));
         }
@@ -27,14 +28,7 @@ namespace LR2NowPlaying
                 byte[] recvBuffer = udpClient.Receive(ref from);
                 string str = Encoding.UTF8.GetString(recvBuffer).Substring(1);
                 Console.WriteLine(str);
-                using (var md5 = MD5.Create())
-                {
-                    using (var stream = File.OpenRead(str))
-                    {
-                        var hash = md5.ComputeHash(stream);
-                        Console.WriteLine(BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant());
-                    }
-                }
+                queue.Add(str);
             }
         }
     }
