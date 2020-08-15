@@ -8,7 +8,7 @@ A tool that extracts the chart you're currently playing on LR2(HD).
 
 ## Setup
 
-Grab the latest release from the Releases tab and run `LR2NowPlaying.exe` **while LR2 is running**. The data will be saved in the executable's folder as `nowplaying.txt`.
+Grab the latest release from the [Releases tab](https://github.com/SayakaIsBaka/LR2NowPlaying/releases) and run `LR2NowPlaying.exe` **while LR2 is running**. The data will be saved in the executable's folder as `nowplaying.txt`.
 If you wish to edit the way the data is displayed in the file, edit the `template.txt` file. Currently, the following tokens are available:
 - {artist}
 - {genre}
