@@ -100,11 +100,27 @@ namespace LR2NowPlaying
 
         private void WriteFile(Dictionary<string, string> dic)
         {
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "/template.txt";
+            string template = "";
+
+            try
+            {
+                byte[] templateByte = File.ReadAllBytes(templatePath);
+                template = Encoding.UTF8.GetString(templateByte);
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.Message);
+                template = "[{genre}] {title} - {artist} ({tags})";
+            }
+            
             foreach (var key in dic.Keys)
             {
-                //url = url.Replace(key, values[key]);
+                template = template.Replace(key, dic[key]);
                 Console.WriteLine($"{key}: {dic[key]}");
             }
+
+            File.WriteAllText("nowplaying.txt", template);
         }
     }
 }
