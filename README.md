@@ -25,6 +25,7 @@ You will need at least Visual Studio 2017 and the Http Agility Pack package to b
 - Implement a fallback if the BMS cannot be found on LR2IR / the connection to LR2IR fails
 - Exit cleanly (probably not going to happen)
 - Making LR2mind not broadcast the message on UDP but instead only send it on localhost (low priority)
+- Make the program work if the DLL's path contains non-ASCII characters
 
 ## Special thanks
 

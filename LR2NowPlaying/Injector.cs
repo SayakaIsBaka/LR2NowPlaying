@@ -60,8 +60,7 @@ namespace LR2NowPlaying
         public int Clean()
         {
             Imports.WaitForSingleObject(loadThread, Imports.INFINITE);
-            IntPtr baseAddressMind;
-            Imports.GetExitCodeThread(loadThread, out baseAddressMind);
+            Imports.GetExitCodeThread(loadThread, out var baseAddressMind);
             Console.WriteLine("load_library_thread - detached " + baseAddressMind);
 
             Imports.CloseHandle(loadThread);
