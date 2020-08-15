@@ -10,10 +10,10 @@ A tool that extracts the chart you're currently playing on LR2(HD).
 
 Grab the latest release from the [Releases tab](https://github.com/SayakaIsBaka/LR2NowPlaying/releases) and run `LR2NowPlaying.exe` **while LR2 is running**. The data will be saved in the executable's folder as `nowplaying.txt`.
 If you wish to edit the way the data is displayed in the file, edit the `template.txt` file. Currently, the following tokens are available:
-- {artist}
-- {genre}
-- {title}
-- {tags}
+- `{artist}`: artist of the song
+- `{genre}`: genre of the song
+- `{title}`: title of the song
+- `{tags}`: tags on the chart on LR2IR
 
 ## Building
 
@@ -23,6 +23,7 @@ You will need at least Visual Studio 2017 and Http Agility Pack package to build
 ## TODO
 
 - Implement a fallback if the BMS cannot be found on LR2IR / the connection to LR2IR fails
+- Make a single version that works with both LR2 and LR2H2 (LR2FHD is untested)
 - Exit cleanly (probably not going to happen)
 - Making LR2mind not broadcast the message on UDP but instead only send it on localhost (low priority)
 
