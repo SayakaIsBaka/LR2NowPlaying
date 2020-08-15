@@ -15,6 +15,11 @@ namespace LR2NowPlaying
             Injector injector = new Injector(processName);
             int ret = injector.Inject(dllPath);
 
+            if (ret != 0)
+            {
+                Environment.Exit(ret);
+            }
+
             BlockingCollection<string> queue = new BlockingCollection<string>();
 
             Thread receiverThread = new Thread(
@@ -34,7 +39,7 @@ namespace LR2NowPlaying
                 }
             });
 
-            return ret;
+            return 0;
         }
     }
 }

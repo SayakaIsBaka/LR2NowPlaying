@@ -26,7 +26,7 @@ namespace LR2NowPlaying
             while (true)
             {
                 byte[] recvBuffer = udpClient.Receive(ref from);
-                string str = Encoding.UTF8.GetString(recvBuffer).Substring(1);
+                string str = Encoding.GetEncoding(932).GetString(recvBuffer).Substring(1);
                 Console.WriteLine(str);
                 queue.Add(str);
             }
