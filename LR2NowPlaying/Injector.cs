@@ -25,6 +25,8 @@ namespace LR2NowPlaying
                 Console.Error.WriteLine(processName + " process not found");
                 return 1;
             }
+            Console.WriteLine(processName + " process found");
+
             Process lr2Process = lr2Processes[0];
             uint dllPathLength = (uint)((dllPath.Length + 1) * Marshal.SizeOf(typeof(char)));
 

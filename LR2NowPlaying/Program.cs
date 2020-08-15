@@ -10,13 +10,18 @@ namespace LR2NowPlaying
         static int Main(string[] args)
         {
             string dllPath = AppDomain.CurrentDomain.BaseDirectory + "/LR2mind.dll";
-            string processName = "LRHbody";
+            string[] processNames = { "LRHbody", "LR2body" };
+            int ret = 0;
 
-            Injector injector = new Injector(processName);
-            int ret = injector.Inject(dllPath);
+            foreach (string processName in processNames) {
+                Injector injector = new Injector(processName);
+                ret = injector.Inject(dllPath);
+                if (ret == 0) break;
+            }
 
             if (ret != 0)
             {
+                Console.Error.WriteLine("Could not inject the dll to LR2, exiting...");
                 Environment.Exit(ret);
             }
 

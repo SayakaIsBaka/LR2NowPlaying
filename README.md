@@ -17,13 +17,12 @@ If you wish to edit the way the data is displayed in the file, edit the `templat
 
 ## Building
 
-You will need at least Visual Studio 2017 and Http Agility Pack package to build this project.
+You will need at least Visual Studio 2017 and the Http Agility Pack package to build this project.
 **The DLL's source code (LR2mind.dll) has been voluntarily omitted from the repository to avoid enabling cheating, as the DLL is being injected into LR2's process.**
 
 ## TODO
 
 - Implement a fallback if the BMS cannot be found on LR2IR / the connection to LR2IR fails
-- Make a single version that works with both LR2 and LR2H2 (LR2FHD is untested)
 - Exit cleanly (probably not going to happen)
 - Making LR2mind not broadcast the message on UDP but instead only send it on localhost (low priority)
 
