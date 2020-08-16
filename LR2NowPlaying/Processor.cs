@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace LR2NowPlaying
 {
@@ -68,8 +69,32 @@ namespace LR2NowPlaying
         private Dictionary<string, string> GetInfoFromLR2IR(HtmlDocument htmlDoc)
         {
             HtmlNode tagsHtml = htmlDoc.DocumentNode.SelectSingleNode("//div[@id='box']/table/tr[2]/td");
-            List<string> tags = new List<string>();
+            HashSet<string> tags = new HashSet<string>();
 
+            HtmlNode exLevelHtml = htmlDoc.DocumentNode.SelectSingleNode("//div[@id='box']/table/tr[1]/td[2]");
+            if (exLevelHtml.Descendants("a").Any())
+            {
+                string exLevelUrl = exLevelHtml.LastChild.Attributes["href"].Value;
+                string exLevel = HttpUtility.ParseQueryString(new Uri("http://www.dream-pro.info/~lavalse/LR2IR/" + exLevelUrl).Query).Get("exlevel");
+                int exLevelInt = int.Parse(exLevel);
+                if (exLevelInt >= 31 && exLevelInt <= 43) // normal1 table (1 to 13)
+                {
+                    tags.Add("#☆" + (exLevelInt - 30));
+                }
+                else if (exLevelInt == 44) // normal1 table (X)
+                {
+                    tags.Add("#☆X");
+                }
+                else if (exLevelInt <= 25) // insane1 table (1 to 25)
+                {
+                    tags.Add("#★" + exLevel);
+                }
+                else if (exLevelInt == 99) // insane1 table (???)
+                {
+                    tags.Add("#★???");
+                }
+            }
+            
             foreach (HtmlNode tag in tagsHtml.Descendants())
             {
                 if (tag.NodeType == HtmlNodeType.Element && tag.InnerText.Length != 0)
