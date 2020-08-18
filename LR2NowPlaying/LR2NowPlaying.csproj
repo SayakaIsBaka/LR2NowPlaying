@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BmsHeader.cs" />
+    <Compile Include="BmsParser.cs" />
     <Compile Include="MindReceiver.cs" />
     <Compile Include="Imports.cs" />
     <Compile Include="Injector.cs" />

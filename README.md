@@ -22,11 +22,11 @@ You will need at least Visual Studio 2017 and the Http Agility Pack package to b
 
 ## TODO
 
-- Implement a fallback if the BMS cannot be found on LR2IR / the connection to LR2IR fails
 - Exit cleanly (probably not going to happen)
 - Making LR2mind not broadcast the message on UDP but instead only send it on localhost (low priority)
 - Make the program work if the DLL's path contains non-ASCII characters
 
 ## Special thanks
 
-Nothilvien for writing LR2mind's code and the original injector's code (in C++) and basically giving me the motivation to actually make this
+- Nothilvien for writing LR2mind's code and the original injector's code (in C++) and basically giving me the motivation to actually make this
+- Mushus for making [bms-parser](https://github.com/Mushus/bms-parser) (which I totally stole the code of for the BMS parsing part)

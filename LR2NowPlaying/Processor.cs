@@ -55,10 +55,10 @@ namespace LR2NowPlaying
                             }
                             
                         }
-                        catch (HttpRequestException e)
+                        catch (Exception e)
                         {
-                            Console.Error.WriteLine(e.Message);
-                            Dictionary<string, string> dic = GetInfoFromBMS(stream);
+                            await Console.Error.WriteLineAsync(e.Message);
+                            Dictionary<string, string> dic = GetInfoFromBMS(bmsPath);
                             WriteFile(dic);
                         }
                     });
@@ -114,13 +114,32 @@ namespace LR2NowPlaying
             return dic;
         }
 
-        private Dictionary<string, string> GetInfoFromBMS(FileStream stream)
+        private Dictionary<string, string> GetInfoFromBMS(string bmsPath)
         {
-            Dictionary<string, string> dic = new Dictionary<string, string>();
+            try
+            {
+                using (FileStream stream = File.OpenRead(bmsPath))
+                {
+                    BmsParser parser = new BmsParser();
+                    BmsHeader bms = parser.Parse(stream);
 
-            // TODO
+                    Dictionary<string, string> dic = new Dictionary<string, string>
+                    {
+                        { "{genre}", bms.Genre },
+                        { "{title}", bms.Title },
+                        { "{artist}", bms.Artist },
+                        { "{tags}", "TOTAL " + bms.Total }
+                    };
 
-            return dic;
+                    return dic;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.Message);
+                return new Dictionary<string, string>();
+            }
+
         }
 
         private void WriteFile(Dictionary<string, string> dic)
