@@ -128,7 +128,7 @@ namespace LR2NowPlaying
                         { "{genre}", bms.Genre },
                         { "{title}", bms.Title },
                         { "{artist}", bms.Artist },
-                        { "{tags}", "TOTAL " + bms.Total }
+                        { "{tags}", bms.Total.HasValue ? "TOTAL " + bms.Total : "" }
                     };
 
                     return dic;
@@ -139,7 +139,6 @@ namespace LR2NowPlaying
                 Console.Error.WriteLine(e.Message);
                 return new Dictionary<string, string>();
             }
-
         }
 
         private void WriteFile(Dictionary<string, string> dic)
